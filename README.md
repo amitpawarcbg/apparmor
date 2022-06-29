@@ -159,6 +159,14 @@ Finally, we can see what happens if we try to violate the profile by writing to 
 
 *$ sudo aa-enforce /etc/apparmor.d/**
 
+* apparmor_parser is used to load a profile into the kernel. It can also be used to reload a currently loaded profile using the -r option after modifying it to have the changes take effect.
+To reload a profile:
+
+*$ sudo apparmor_parser -r /etc/apparmor.d/profile.name*
+
+* systemctl can be used to reload all profiles:
+
+*$ sudo systemctl reload apparmor.service*
 
 
 
