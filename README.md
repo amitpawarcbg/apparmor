@@ -116,6 +116,26 @@ Copy the k8s-apparmor-example-deny-write file to /etc/apparmor.d location on all
 
 *$ scp k8s-apparmor-example-deny-write root@node1:/etc/apparmor.d/*
 
+Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
+
+![image](https://user-images.githubusercontent.com/88305831/176441168-92bec4a7-437d-475f-adb5-733e22f4e252.png)
+
+*$ kubectl apply -f pod.yaml*
+
+We can verify that the container is actually running with that profile by checking its proc attr:
+
+*$ kubectl exec hello-apparmor -- cat /proc/1/attr/current*
+
+![image](https://user-images.githubusercontent.com/88305831/176450660-79c03108-fa40-4797-92c3-e6c43d50d127.png)
+
+Finally, we can see what happens if we try to violate the profile by writing to a file:
+
+*$ kubectl exec hello-apparmor -- touch /etc/test*
+
+![image](https://user-images.githubusercontent.com/88305831/176451268-30da452d-5085-4c93-a084-e467155a2db0.png)
+
+
+
 
 
 
