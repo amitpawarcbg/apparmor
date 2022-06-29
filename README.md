@@ -35,15 +35,32 @@ The kernel does some work for you, like creating a process, then hands control b
 
 1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and will silently ignore any AppArmor settings that are provided. To ensure that your Pods are receiving the expected protections, it is important to verify the Kubelet version of your nodes:
 
-*$ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'*
+  *$ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'*
 
 ![image](https://user-images.githubusercontent.com/88305831/176432165-4dfc9f35-a6b3-4ef6-913b-de00911a4d97.png)
 
 2. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the AppArmor kernel module must be installed and enabled. Several distributions enable the module by default, such as Ubuntu and SUSE, and many others provide optional support. To check whether the module is enabled, check the /sys/module/apparmor/parameters/enabled file:
 
-*$ cat /sys/module/apparmor/parameters/enabled*
+  *$ cat /sys/module/apparmor/parameters/enabled*
 
 ![image](https://user-images.githubusercontent.com/88305831/176432647-0d2d7402-815c-4cc0-a734-371bb20883c1.png)
+
+If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor options if the kernel module is not enabled.
+
+3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container runtimes should support AppArmor, like Docker, CRI-O or containerd. Please refer to the corresponding runtime documentation and verify that the cluster fulfills the requirements to use AppArmor.
+
+4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each container should be run with. If any of the specified profiles is not already loaded in the kernel, the Kubelet (>= v1.4) will reject the Pod. You can view which profiles are loaded on a node by checking the /sys/kernel/security/apparmor/profiles file. For example:
+
+*$ ssh node1 "sudo cat /sys/kernel/security/apparmor/profiles | sort"*
+
+![image](https://user-images.githubusercontent.com/88305831/176433446-970875b6-9fc8-40fa-a75e-e2dbc321580b.png)
+
+As long as the Kubelet version includes AppArmor support (>= v1.4), the Kubelet will reject a Pod with AppArmor options if any of the prerequisites are not met. You can also verify AppArmor support on nodes by checking the node ready condition message (though this is likely to be removed in a later release):
+
+*$ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'*
+
+![image](https://user-images.githubusercontent.com/88305831/176433968-0f3b2dc5-9d56-4caf-ac72-4e79f5be1332.png)
+
 
 
 
