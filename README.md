@@ -71,9 +71,37 @@ To check the AppArmor Install Status
 
 *$ systemctl status apparmor*
 
+**Securing a Pod**
 
+Note: AppArmor is currently in beta, so options are specified as annotations. Once support graduates to general availability, the annotations will be replaced with first-class fields
+
+AppArmor profiles are specified per-container. To specify the AppArmor profile to run a Pod container with, add an annotation to the Pod's metadata:
+
+![image](https://user-images.githubusercontent.com/88305831/176437138-a5efa8b1-4459-46f2-be39-272c9f9de78b.png)
+
+Where <container_name> is the name of the container to apply the profile to, and <profile_ref> specifies the profile to apply. The profile_ref can be one of:
+
+* runtime/default to apply the runtime's default profile
+* localhost/<profile_name> to apply the profile loaded on the host with the name <profile_name>
+* unconfined to indicate that no profiles will be loaded
 
 **Let's start with AppArmor Installation and Configuration"
+
+
+Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been met, and then forwarding the profile selection to the container runtime for enforcement. If the prerequisites have not been met, the Pod will be rejected, and will not run.
+
+To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event:
+
+*$ kubectl get events | grep Created*
+
+![image](https://user-images.githubusercontent.com/88305831/176437841-87b9988d-ee83-40d9-98fa-1a9b7db1693d.png)
+
+You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
+
+*$ kubectl exec <pod_name> -- cat /proc/1/attr/current*
+
+![image](https://user-images.githubusercontent.com/88305831/176438566-f70757f5-82e0-4e16-b788-f7535de37dd4.png)
+
 
 
 
