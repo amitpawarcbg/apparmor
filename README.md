@@ -61,7 +61,15 @@ As long as the Kubelet version includes AppArmor support (>= v1.4), the Kubelet 
 
 ![image](https://user-images.githubusercontent.com/88305831/176433968-0f3b2dc5-9d56-4caf-ac72-4e79f5be1332.png)
 
+Incase AppArmor is not installed then you can install it on Ubuntu system using below commands.
 
+*$ apt install apparmor-profiles*
+
+*$ apt install apparmor-utils*
+
+To check the AppArmor Install Status
+
+*$ systemctl status apparmor*
 
 
 
