@@ -134,6 +134,34 @@ Finally, we can see what happens if we try to violate the profile by writing to 
 
 ![image](https://user-images.githubusercontent.com/88305831/176451268-30da452d-5085-4c93-a084-e467155a2db0.png)
 
+**Now let's focus on some AppArmor commands**
+
+* You can view the loaded AppArmor profile with below command.
+
+*$ aa-status* or *$ apparmor_status*
+
+* aa-complain places a profile into complain mode.
+
+*$ sudo aa-complain /path/to/bin*
+
+* aa-enforce places a profile into enforce mode.
+
+*$ sudo aa-enforce /path/to/bin*
+
+
+* The /etc/apparmor.d directory is where the AppArmor profiles are located. It can be used to manipulate the mode of all profiles.
+
+* Enter the following to place all profiles into complain mode:
+
+*$ sudo aa-complain /etc/apparmor.d/**
+
+* To place all profiles in enforce mode:
+
+*$ sudo aa-enforce /etc/apparmor.d/**
+
+
+
+
 
 
 
