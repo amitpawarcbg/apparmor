@@ -27,7 +27,7 @@ The kernel does some work for you, like creating a process, then hands control b
 
 ![AppArmor4_Sample_AppArmor_profile](https://user-images.githubusercontent.com/88305831/176427250-4107855b-4f74-4290-8107-c3296d8f1d2e.png)
 
-**Apply AppArmor Profile to Pod**
+**Apply AppArmor Profile to Pod** 
 
 ![AppArmor5_Apply_to_Pod](https://user-images.githubusercontent.com/88305831/176427353-48993c02-0732-4333-9806-ffa1b51d70c0.png)
 
