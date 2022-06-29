@@ -168,7 +168,17 @@ To reload a profile:
 
 *$ sudo systemctl reload apparmor.service*
 
+* The /etc/apparmor.d/disable directory can be used along with the apparmor_parser -R option to disable a profile.
 
+*$ sudo ln -s /etc/apparmor.d/profile.name /etc/apparmor.d/disable/*
+
+*$ sudo apparmor_parser -R /etc/apparmor.d/profile.name*
+
+* To re-enable a disabled profile remove the symbolic link to the profile in /etc/apparmor.d/disable/. Then load the profile using the -a option.
+
+*$ sudo rm /etc/apparmor.d/disable/profile.name*
+
+*$ cat /etc/apparmor.d/profile.name | sudo apparmor_parser -a*
 
 
 
