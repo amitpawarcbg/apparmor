@@ -180,6 +180,20 @@ To reload a profile:
 
 *$ cat /etc/apparmor.d/profile.name | sudo apparmor_parser -a*
 
+* AppArmor can be disabled, and the kernel module unloaded by entering the following:
+
+*$ sudo systemctl stop apparmor.service*
+*$ sudo systemctl disable apparmor.service*
+
+* To re-enable AppArmor enter:
+
+*$ sudo systemctl enable apparmor.service*
+*$ sudo systemctl start apparmor.service*
+
+**Note**
+
+Replace profile.name with the name of the profile you want to manipulate. Also, replace /path/to/bin/ with the actual executable file path. For example for the ping command use /bin/ping
+
 
 
 
