@@ -102,6 +102,24 @@ You can also verify directly that the container's root process is running with t
 
 ![image](https://user-images.githubusercontent.com/88305831/176438566-f70757f5-82e0-4e16-b788-f7535de37dd4.png)
 
+**Example**
+
+This example assumes you have already set up a cluster with AppArmor support.
+
+First, we need to load the profile we want to use onto our nodes. This profile denies all file writes to /etc, /var and /tmp filesystem:
+
+![image](https://user-images.githubusercontent.com/88305831/176439861-c2ef97df-ce16-44f5-9c44-3d505636498b.png)
+
+Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our nodes. For this example we'll use SSH to install the profiles, but other approaches are discussed in later section.
+
+Copy the k8s-apparmor-example-deny-write file to /etc/apparmor.d location on all nodes.
+
+*$ scp k8s-apparmor-example-deny-write root@node1:/etc/apparmor.d/*
+
+
+
+
+
 
 
 
