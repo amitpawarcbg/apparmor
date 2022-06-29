@@ -31,6 +31,12 @@ The kernel does some work for you, like creating a process, then hands control b
 
 ![AppArmor5_Apply_to_Pod](https://user-images.githubusercontent.com/88305831/176427353-48993c02-0732-4333-9806-ffa1b51d70c0.png)
 
+**Prereqisites for AppArmor**
+
+1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and will silently ignore any AppArmor settings that are provided. To ensure that your Pods are receiving the expected protections, it is important to verify the Kubelet version of your nodes:
+
+
+
 **Let's start with AppArmor Installation and Configuration"
 
 
