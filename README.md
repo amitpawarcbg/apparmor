@@ -282,9 +282,13 @@ You can also create your first AppArmorProfile object with kubectl:
 
 ![image](https://user-images.githubusercontent.com/88305831/176623558-4f3a5849-b0d7-45d5-87f8-599d1f5d767b.png)
 
-*$ kubectl get kubectl get apparmorprofiles.crd.security.sysdig.com*
+*$ kubectl get apparmorprofiles.crd.security.sysdig.com*
 
 ![image](https://user-images.githubusercontent.com/88305831/176623820-f0957ab0-6c60-4caa-833e-06ace24d7ae9.png)
+
+Once created, you’ll want to synchronize the AppArmorProfiles to the worker nodes:
+
+
 
 
 
