@@ -231,7 +231,9 @@ Once the CRD is installed in the Kubernetes cluster, you can start interacting w
 
 This is what apparmor-manager, a kubectl plugin, does.
 
-You can install it using krew:
+You can install it using krew :
+
+*$ kubectl krew install apparmor-manager*
 
 
 
