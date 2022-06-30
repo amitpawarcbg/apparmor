@@ -231,9 +231,32 @@ Once the CRD is installed in the Kubernetes cluster, you can start interacting w
 
 This is what apparmor-manager, a kubectl plugin, does.
 
-You can install it using krew :
+You can install it using [krew](https://github.com/kubernetes-sigs/krew) :
 
-*$ kubectl krew install apparmor-manager*
+*$ kubectl krew install apparmor-manager*As apparmor-manager communicates with the worker nodes via SSH, you will need to set some environment variables:
+
+As apparmor-manager communicates with the worker nodes via SSH, you will need to set some environment variables:
+
+SSH_USERNAME: SSH username to access worker nodes. Defaults to admin.
+SSH_PERM_FILE: SSH private key to access worker nodes. Defaults to $HOME/.ssh/id_rsa.
+SSH_PASSPHRASE: SSH passphrase (only applicable if the private key is passphrase protected).
+
+For Ubuntu you can use below steps on Master Node to setup password less login to worker nodes.
+
+Type the following commands:
+
+*$ ssh-keygen*
+
+Press Enter key till you get the prompt
+
+*$ ssh-copy-id -i root@node_ip_address*
+
+(It will once ask for the password of the host system)
+
+*$ ssh root@node_ip_address*
+
+Now you should be able to login without any password.
+
 
 
 
