@@ -302,7 +302,7 @@ Once created, you’ll want to synchronize the AppArmorProfiles to the worker no
 
 *$ kubectl apparmor-manager sync*
 
-*$ kubectl apparmor-manager enforced$
+*$ kubectl apparmor-manager enforced*
 
 ![image](https://user-images.githubusercontent.com/88305831/176625231-dd75f411-1ae7-45d3-9604-aff0cec7a7f9.png)
 
