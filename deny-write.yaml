@@ -1,0 +1,11 @@
+apiVersion: crd.security.sysdig.com/v1alpha1
+kind: AppArmorProfile
+metadata:
+  name: k8s-apparmor-example-deny-write
+spec:
+  # Add fields here
+  enforced: true
+  rules: |
+    # read only file paths
+    file,
+    deny /** w,
