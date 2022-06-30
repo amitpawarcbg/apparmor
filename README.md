@@ -266,6 +266,35 @@ On Master node:
 
 *$ kubectl apparmor-manager init*
 
+![image](https://user-images.githubusercontent.com/88305831/176622522-f920e843-14b9-43aa-9939-c8616e602acd.png)
+
+The init command will also install the CRD for you.
+
+Once everything is configured, you can check the status of AppArmor on the nodes with:
+
+*$ kubectl apparmor-manager enabled*
+
+![image](https://user-images.githubusercontent.com/88305831/176623163-70ef0e35-8ce7-4662-9611-7831d9c6432e.png)
+
+You can also create your first AppArmorProfile object with kubectl:
+
+*$ kubectl apply -f deny-write.yaml
+
+![image](https://user-images.githubusercontent.com/88305831/176623558-4f3a5849-b0d7-45d5-87f8-599d1f5d767b.png)
+
+*$ kubectl get kubectl get apparmorprofiles.crd.security.sysdig.com*
+
+![image](https://user-images.githubusercontent.com/88305831/176623820-f0957ab0-6c60-4caa-833e-06ace24d7ae9.png)
+
+
+
+
+
+
+
+
+
+
 
 
 
