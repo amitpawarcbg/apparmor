@@ -194,6 +194,13 @@ To reload a profile:
 
 Replace profile.name with the name of the profile you want to manipulate. Also, replace /path/to/bin/ with the actual executable file path. For example for the ping command use /bin/ping
 
+Now think of the challenges of implementing AppArmor in production.
+
+First, you will have to build robust profiles for each of your containers to prevent attacks without blocking daily tasks.
+
+Then, you will have to manage several profiles across all the nodes in your cluster.
+
+kube-apparmor-manager tool will help to manage AppArmor profiles for Kubernetes cluster.
 
 
 
