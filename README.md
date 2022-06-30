@@ -200,8 +200,38 @@ Now think of the challenges of implementing AppArmor in production.First, you wi
 
 [kube-apparmor-manager](https://github.com/sysdiglabs/kube-apparmor-manager) tool will help to manage AppArmor profiles for Kubernetes cluster.
 
+There are some tools, like [apparmor-loader](https://github.com/kubernetes/kubernetes/tree/master/test/images/apparmor-loader), that help manage AppArmor profiles in Kubernetes clusters. Apparmor-loader runs as a privileged daemonset, polls a configmap containing the AppArmor profiles, and finally parses the profiles into either enforce mode or complaint mode. However, this introduces a privileged workload which is far from ideal. That’s why we can come up with an alternative approach.
 
 
+
+Kube-apparmor-manager approach is different:
+
+1. It represents the profiles as Kubernetes objects using a Custom Resource Definition (apparmorprofiles.crd.security.sysdig.com).
+2. A kubectl plugin translates AppArmorProfile objects, stored in etcd, into the actual AppArmor profiles, and synchronizes them between the nodes.
+
+* The AppArmorProfile Custom Resource Definition
+* 
+The [AppArmorProfile CRD](https://github.com/sysdiglabs/kube-apparmor-manager/blob/master/crd/crd.security.sysdig.com_apparmorprofiles.yaml) defines a schema to represent an AppArmor profile as a Kubernetes object.
+
+Install the AppArmorProfile CRD.
+
+*$ kubectl apply -f crd.security.sysdig.com_apparmorprofiles.yaml*
+
+This is how our example AppArmor profile would look like in this format:
+
+![image](https://user-images.githubusercontent.com/88305831/176612030-c4d81528-acf5-4c07-8a8c-3708f60f1f2f.png)
+
+The enforced field dictates whether the profile is in enforce or complain mode. The field rules contain the AppArmor profile body with the list of whitelist or blacklist rules.
+
+Note that this is a cluster level object.
+
+* The Apparmor-manager plugin
+
+Once the CRD is installed in the Kubernetes cluster, you can start interacting with AppArmorProfile objects using kubectl. However, you still need to translate the content from the AppArmorProfile objects into the actual AppArmor profiles, and distribute them to all the nodes.
+
+This is what apparmor-manager, a kubectl plugin, does.
+
+You can install it using krew:
 
 
 
