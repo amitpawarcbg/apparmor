@@ -238,8 +238,20 @@ You can install it using [krew](https://github.com/kubernetes-sigs/krew) :
 As apparmor-manager communicates with the worker nodes via SSH, you will need to set some environment variables:
 
 SSH_USERNAME: SSH username to access worker nodes. Defaults to admin.
+
 SSH_PERM_FILE: SSH private key to access worker nodes. Defaults to $HOME/.ssh/id_rsa.
+
 SSH_PASSPHRASE: SSH passphrase (only applicable if the private key is passphrase protected).
+
+On Master node:
+
+*$ vi ~/.bashrc*
+
+Add below two line the file .bashrc
+
+export SSH_USERNAME=root
+
+export SSH_PERM_FILE=$HOME/.ssh/id_rsa
 
 For Ubuntu you can use below steps on Master Node to setup password less login to worker nodes.
 
@@ -287,6 +299,14 @@ You can also create your first AppArmorProfile object with kubectl:
 ![image](https://user-images.githubusercontent.com/88305831/176623820-f0957ab0-6c60-4caa-833e-06ace24d7ae9.png)
 
 Once created, you’ll want to synchronize the AppArmorProfiles to the worker nodes:
+
+*$ kubectl apparmor-manager sync*
+
+*$ kubectl apparmor-manager enforced$
+
+![image](https://user-images.githubusercontent.com/88305831/176625231-dd75f411-1ae7-45d3-9604-aff0cec7a7f9.png)
+
+
 
 
 
