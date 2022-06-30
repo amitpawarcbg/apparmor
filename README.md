@@ -255,9 +255,16 @@ Press Enter key till you get the prompt
 
 *$ ssh root@node_ip_address*
 
-Now you should be able to login without any password.
+Now you should be able to login to worked nodes without any password.
 
+Now you need to copy "/root/.ssh/id_rsa.pub" from Master node to "/root/.ssh/authorized_keys" on Master node.
+On Master node:
 
+*$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+* If AppArmor is not installed on the nodes, apparmor-manager can help you enable AppArmor on worker nodes with the following command:
+
+*$ kubectl apparmor-manager init*
 
 
 
